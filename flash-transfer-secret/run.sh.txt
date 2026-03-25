@@ -1,0 +1,25 @@
+sudo apt update
+sudo apt install -y nodejs npm
+sudo apt purge nodejs npm -y && sudo apt autoremove -y
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs npm
+node -v
+sudo npm init -y
+sudo npm install express multer nanoid fs-extra express-basic-auth
+#node server.js
+sudo npm install -g pm2
+
+sudo pm2 start server.js --name "transfer"
+sudo pm2 list
+sudo pm2 save
+sudo pm2 startup
+sudo pm2 reload transfer
+sudo pm2 restart transfer
+sudo pm2 logs transfer
+
+
+sudo iptables -L INPUT -n --line-numbers
+sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT
+sudo netfilter-persistent save
+sudo iptables -D INPUT 1
+sudo netfilter-persistent save

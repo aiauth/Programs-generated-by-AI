@@ -1,0 +1,14 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "SafeArmor 安盾密码",
+  "dependencies": {
+    "@ohos.security.cryptoFramework": "^1.0.0",
+    "@ohos.userIAM.userAuth": "^1.0.0",
+    "@ohos.data.relationalStore": "^1.0.0",
+    "@ohos.promptAction": "^1.0.0",
+    "@ohos.clipboard": "^1.0.0"
+  },
+  "strictMode": true,
+  "apiMode": "next"
+}

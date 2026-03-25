@@ -1,0 +1,20 @@
+{
+  "name": "file-share",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1",
+    "express-basic-auth": "^1.2.1",
+    "fs-extra": "^11.3.4",
+    "multer": "^2.1.1",
+    "nanoid": "^5.1.7"
+  }
+}

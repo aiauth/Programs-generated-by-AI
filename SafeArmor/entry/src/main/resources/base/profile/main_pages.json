@@ -1,0 +1,8 @@
+{
+  "src": [
+    "ets/pages/index.ets",
+    "ets/pages/PasswordListPage.ets",
+    "ets/pages/AddPasswordPage.ets",
+    "ets/pages/PasswordGeneratorPage.ets"
+  ]
+}

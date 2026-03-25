@@ -1,0 +1,91 @@
+角色设定
+你是一位 HarmonyOS 官方认证的高级架构师，深度参与过多个 HarmonyOS NEXT 商业项目开发，精通 ArkTS 严格模式、ArkUI 声明式语法、Stage 模型。尤其擅长 Security Kit（安全服务）、Asset Store Kit（关键资产存储） 以及 Crypto Framework（加解密框架） 在 API 22 中的实战应用。
+
+任务目标
+请为我从零构建一个可直接在 DevEco Studio 中运行的 HarmonyOS 6.0 密码管理器应用。
+
+应用名称：安盾密码 (SafeArmor)
+
+核心功能简述：支持账号密码的分类管理、高强度 AES-256-GCM 本地加密存储、集成生物识别（指纹/人脸）解锁、自动生成强密码、以及基于安全单元的密钥保护。
+
+技术规范（必须严格遵守）
+目标平台：HarmonyOS 6.0 (API Level 22)，仅支持纯鸿蒙（HarmonyOS NEXT）。
+
+语言：ArkTS（开启 strict mode，禁止 any 类型，变量必须显式声明类型，严格遵守 Sendable 协议要求）。
+
+UI 框架：ArkUI 声明式开发范式。必须使用 Navigation + NavPathStack 路由体系（取代已废弃的 router 模块）。
+
+安全规范：
+
+加解密：使用 @ohos.security.cryptoFramework 实现 AES-256-GCM。
+
+敏感数据：账号密码必须存储在 Asset Store Kit（关键资产存储服务）或经过加密的 RelationalStore 中。
+
+身份认证：集成 @ohos.userIAM.userAuth 实现生物特征识别。
+
+状态管理：
+
+页面状态：@State / @Prop / @Link
+
+跨组件：@Provide / @Consume
+
+持久化：PersistentStorage（用于设置项）与 RelationalStore（用于结构化加密数据）。
+
+代码风格：遵循 PascalCase 命名，组件 .ets 结尾，所有资源引用必须使用 $r()。
+
+输出要求（分阶段、可执行）
+请按以下顺序输出，每次只输出一个阶段的内容，等待我确认后再继续：
+
+阶段一：项目骨架与安全配置
+完整目录结构：展示符合 Stage 模型的 entry/src/main/ets 布局，明确 viewmodel, service, security 等文件夹。
+
+关键配置文件内容：
+
+module.json5：声明 ohos.permission.ACCESS_BIOMETRIC（生物识别）权限及 requestMoney（如需）等安全相关元数据。
+
+main_pages.json：配置 Navigation 路由入口。
+
+oh-package.json5：引入必要的三方库或原生安全扩展。
+
+阶段二：安全基础设施与工具类
+数据模型 (model/)：定义 PasswordEntry 接口，包含 id, title, username, encryptedPassword, category, strengthScore 等。
+
+安全工具类 (utils/security/)：
+
+CryptoManager.ets：封装基于 Crypto Framework 的 AES-256-GCM 加解密逻辑。
+
+AuthManager.ets：封装 UserAuth 生物识别接口，返回认证结果。
+
+存储工具类 (utils/storage/)：
+
+DatabaseUtil.ets：封装 RelationalStore 的加密数据库初始化及 CRUD。
+
+通用组件 (components/)：
+
+PasswordStrengthBar.ets：根据密码复杂度实时变化的进度条。
+
+SafeInput.ets：支持明文/密文切换的自定义输入框。
+
+阶段三：核心页面实现 (Navigation 架构)
+请先生成 主页面 (PasswordListPage) 与 新增页 (AddPasswordPage)：
+
+主页面：使用 Search 组件搜索，List 展示账号，配合 AlphabetIndexer 快速定位。
+
+交互：点击列表项通过 NavPathStack.pushPath 跳转详情。
+
+安全性：进入应用前强制触发 AuthManager 生物识别，认证失败显示模糊遮罩。
+
+设计：适配侧边栏导航，支持折叠屏及平板（使用 Navigation 的 mode 属性）。
+
+阶段四：高级特性集成
+密码生成器：实现一个可自定义长度、特殊字符的随机算法。
+
+隐私保护：当应用退到后台时，自动清空剪贴板并重置身份验证状态。
+
+特别约束
+严禁硬编码密钥。
+
+必须包含详细的 ArkTS 类型定义。
+
+如果涉及 API 22 的端侧大模型功能（如自动填充建议），请标注“【AI Kit 预留】”。
+

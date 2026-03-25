@@ -1,3 +1,7 @@
+#Customized files
+*.pem
+.hvigor
+.idea
 # Logs
 logs
 *.log
